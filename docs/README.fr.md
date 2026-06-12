@@ -98,5 +98,5 @@ Les releases officielles sont générées par GitHub Actions. Lorsqu'une balise 
 
 Regivaldo (Sun)  
 Email: regivaldorfs@gmail.com  
-Site web: https://regivaldo.com.br
+Site web: https://regivaldo.com.br  
 Nexus Mods: https://www.nexusmods.com/profile/regivaldorfs

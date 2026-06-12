@@ -98,5 +98,5 @@ As releases oficiais são geradas pelo GitHub Actions. Quando uma tag de versão
 
 Regivaldo (Sun)  
 Email: regivaldorfs@gmail.com  
-Site: https://regivaldo.com.br
+Site: https://regivaldo.com.br  
 Nexus Mods: https://www.nexusmods.com/profile/regivaldorfs
