@@ -1,9 +1,9 @@
 {
   "Name": "True Clock",
-  "Author": "Regivaldo",
+  "Author": "SunAndMoon",
   "Version": "1.0.0",
   "Description": "Shows the real local time on the HUD and supports up to five real-time alerts.",
-  "UniqueID": "Regivaldo.TrueClock",
+  "UniqueID": "SunAndMoon.TrueClock",
   "EntryDll": "TrueClock.dll",
   "MinimumApiVersion": "4.0.0",
   "UpdateKeys": []
