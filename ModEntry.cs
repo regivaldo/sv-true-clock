@@ -6,6 +6,7 @@ using Microsoft.Xna.Framework.Graphics;
 using StardewModdingAPI;
 using StardewModdingAPI.Events;
 using StardewValley;
+using StardewValley.Menus;
 
 namespace TrueClock;
 
@@ -80,12 +81,18 @@ public sealed class ModEntry : Mod
         Vector2 textSize = Game1.smallFont.MeasureString(timeText);
         Rectangle background = new(
             (int)this.clockPosition.X - 8,
-            (int)this.clockPosition.Y - 5,
-            (int)textSize.X + 16,
-            (int)textSize.Y + 10);
+            (int)this.clockPosition.Y - 12,
+            (int)textSize.X + 64,
+            64);
 
-        this.DrawPanel(spriteBatch, background, new Color(20, 24, 28, 210), new Color(235, 232, 220, 230));
-        this.DrawTextWithShadow(spriteBatch, timeText, this.clockPosition, Color.White, Game1.smallFont);
+        this.DrawStardewBox(spriteBatch, background, drawShadow: true);
+        if (this.clockIcon is not null)
+            spriteBatch.Draw(this.clockIcon, new Rectangle(background.X + 16, background.Y + 20, 24, 24), Color.White);
+        spriteBatch.DrawString(
+            Game1.smallFont,
+            timeText,
+            new Vector2(background.X + 48, background.Y + 20),
+            Game1.textColor);
 
         if (this.IsAlertActive(now) && !string.IsNullOrWhiteSpace(this.activeAlertMessage))
             this.DrawToast(spriteBatch, this.activeAlertMessage, background.Bottom + 8);
@@ -102,16 +109,15 @@ public sealed class ModEntry : Mod
             return;
 
         Vector2 playerScreen = Game1.GlobalToLocal(Game1.viewport, Game1.player.Position);
-        int bubbleWidth = 52;
-        int bubbleHeight = 42;
-        int x = (int)playerScreen.X + 6;
-        int y = (int)playerScreen.Y - 72;
+        int bubbleWidth = 64;
+        int bubbleHeight = 56;
+        int x = (int)playerScreen.X;
+        int y = (int)playerScreen.Y - 86;
         Rectangle bubble = new(x, y, bubbleWidth, bubbleHeight);
 
-        this.DrawPanel(e.SpriteBatch, bubble, new Color(255, 250, 232, 238), new Color(66, 48, 38, 230));
-        e.SpriteBatch.Draw(this.clockIcon, new Rectangle(x + 14, y + 8, 24, 24), Color.White);
-        e.SpriteBatch.Draw(this.pixel, new Rectangle(x + 23, y + bubbleHeight - 1, 6, 8), new Color(255, 250, 232, 238));
-        e.SpriteBatch.Draw(this.pixel, new Rectangle(x + 22, y + bubbleHeight - 1, 8, 1), new Color(66, 48, 38, 230));
+        this.DrawStardewBox(e.SpriteBatch, bubble, drawShadow: true);
+        e.SpriteBatch.Draw(this.clockIcon, new Rectangle(x + 20, y + 16, 24, 24), Color.White);
+        e.SpriteBatch.Draw(this.pixel, new Rectangle(x + 29, y + bubbleHeight - 2, 6, 8), Color.White);
     }
 
     private void CheckAlerts(DateTime now)
@@ -316,29 +322,25 @@ public sealed class ModEntry : Mod
     {
         string text = message.Length > 60 ? $"{message[..57]}..." : message;
         Vector2 textSize = Game1.smallFont.MeasureString(text);
-        int width = Math.Min((int)textSize.X + 20, Game1.uiViewport.Width - 32);
-        Rectangle background = new(16, top, width, (int)textSize.Y + 12);
+        int width = Math.Min((int)textSize.X + 32, Game1.uiViewport.Width - 32);
+        Rectangle background = new(16, top, width, (int)textSize.Y + 24);
 
-        this.DrawPanel(spriteBatch, background, new Color(28, 30, 34, 220), new Color(235, 232, 220, 230));
-        this.DrawTextWithShadow(spriteBatch, text, new Vector2(background.X + 10, background.Y + 6), Color.White, Game1.smallFont);
+        this.DrawStardewBox(spriteBatch, background, drawShadow: true);
+        spriteBatch.DrawString(Game1.smallFont, text, new Vector2(background.X + 16, background.Y + 12), Game1.textColor);
     }
 
-    private void DrawPanel(SpriteBatch spriteBatch, Rectangle rectangle, Color fill, Color border)
+    private void DrawStardewBox(SpriteBatch spriteBatch, Rectangle rectangle, bool drawShadow)
     {
-        if (this.pixel is null)
-            return;
-
-        spriteBatch.Draw(this.pixel, rectangle, fill);
-        spriteBatch.Draw(this.pixel, new Rectangle(rectangle.X, rectangle.Y, rectangle.Width, 2), border);
-        spriteBatch.Draw(this.pixel, new Rectangle(rectangle.X, rectangle.Bottom - 2, rectangle.Width, 2), border);
-        spriteBatch.Draw(this.pixel, new Rectangle(rectangle.X, rectangle.Y, 2, rectangle.Height), border);
-        spriteBatch.Draw(this.pixel, new Rectangle(rectangle.Right - 2, rectangle.Y, 2, rectangle.Height), border);
-    }
-
-    private void DrawTextWithShadow(SpriteBatch spriteBatch, string text, Vector2 position, Color color, SpriteFont font)
-    {
-        Color shadow = new(0, 0, 0, 180);
-        spriteBatch.DrawString(font, text, position + new Vector2(2, 2), shadow);
-        spriteBatch.DrawString(font, text, position, color);
+        IClickableMenu.drawTextureBox(
+            spriteBatch,
+            Game1.menuTexture,
+            new Rectangle(0, 256, 60, 60),
+            rectangle.X,
+            rectangle.Y,
+            rectangle.Width,
+            rectangle.Height,
+            Color.White,
+            1f,
+            drawShadow);
     }
 }
