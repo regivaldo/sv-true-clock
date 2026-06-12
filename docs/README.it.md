@@ -99,3 +99,4 @@ Le release ufficiali sono generate da GitHub Actions. Quando viene inviata una t
 Regivaldo (Sun)  
 Email: regivaldorfs@gmail.com  
 Sito web: https://regivaldo.com.br
+Nexus Mods: https://www.nexusmods.com/profile/regivaldorfs

@@ -99,3 +99,4 @@ dotnet build -c Release
 Regivaldo (Sun)  
 Email: regivaldorfs@gmail.com  
 Web サイト: https://regivaldo.com.br
+Nexus Mods: https://www.nexusmods.com/profile/regivaldorfs
