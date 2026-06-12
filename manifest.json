@@ -1,0 +1,10 @@
+{
+  "Name": "True Clock",
+  "Author": "Regivaldo",
+  "Version": "1.0.0",
+  "Description": "Shows the real local time on the HUD and supports up to five real-time alerts.",
+  "UniqueID": "Regivaldo.TrueClock",
+  "EntryDll": "TrueClock.dll",
+  "MinimumApiVersion": "4.0.0",
+  "UpdateKeys": []
+}
