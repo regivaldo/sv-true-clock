@@ -12,5 +12,6 @@
 
   <ItemGroup>
     <None Update="manifest.json" CopyToOutputDirectory="Always" />
+    <None Update="i18n/**/*.json" CopyToOutputDirectory="Always" />
   </ItemGroup>
 </Project>

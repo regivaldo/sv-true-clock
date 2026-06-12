@@ -196,32 +196,32 @@ public sealed class ModEntry : Mod
                 this.Helper.WriteConfig(this.config);
             });
 
-        gmcm.AddSectionTitle(this.ModManifest, () => "Relogio");
+        gmcm.AddSectionTitle(this.ModManifest, () => this.I18n("config.clock.title"));
         gmcm.AddBoolOption(
             this.ModManifest,
             getValue: () => this.config.Use24HourClock,
             setValue: value => this.config.Use24HourClock = value,
-            name: () => "Usar formato 24 horas",
-            tooltip: () => "Desative para exibir AM/PM.");
+            name: () => this.I18n("config.clock.use-24-hour.name"),
+            tooltip: () => this.I18n("config.clock.use-24-hour.tooltip"));
 
-        gmcm.AddSectionTitle(this.ModManifest, () => "Alertas");
+        gmcm.AddSectionTitle(this.ModManifest, () => this.I18n("config.alerts.title"));
 
         for (int index = 0; index < AlertConfig.SlotCount; index++)
         {
             int slotIndex = index;
             int displaySlot = index + 1;
 
-            gmcm.AddSectionTitle(this.ModManifest, () => $"Alerta {displaySlot}");
+            gmcm.AddSectionTitle(this.ModManifest, () => this.I18n("config.alert.title", new { number = displaySlot }));
             gmcm.AddBoolOption(
                 this.ModManifest,
                 getValue: () => this.config.Alerts[slotIndex].Enabled,
                 setValue: value => this.config.Alerts[slotIndex].Enabled = value,
-                name: () => $"Alerta {displaySlot} habilitado");
+                name: () => this.I18n("config.alert.enabled.name", new { number = displaySlot }));
             gmcm.AddNumberOption(
                 this.ModManifest,
                 getValue: () => this.config.Alerts[slotIndex].Hour,
                 setValue: value => this.config.Alerts[slotIndex].Hour = value,
-                name: () => $"Hora {displaySlot}",
+                name: () => this.I18n("config.alert.hour.name", new { number = displaySlot }),
                 min: 0,
                 max: 23,
                 interval: 1,
@@ -230,7 +230,7 @@ public sealed class ModEntry : Mod
                 this.ModManifest,
                 getValue: () => this.config.Alerts[slotIndex].Minute,
                 setValue: value => this.config.Alerts[slotIndex].Minute = value,
-                name: () => $"Minuto {displaySlot}",
+                name: () => this.I18n("config.alert.minute.name", new { number = displaySlot }),
                 min: 0,
                 max: 59,
                 interval: 1,
@@ -239,8 +239,13 @@ public sealed class ModEntry : Mod
                 this.ModManifest,
                 getValue: () => this.config.Alerts[slotIndex].Message,
                 setValue: value => this.config.Alerts[slotIndex].Message = value ?? string.Empty,
-                name: () => $"Mensagem {displaySlot}");
+                name: () => this.I18n("config.alert.message.name", new { number = displaySlot }));
         }
+    }
+
+    private string I18n(string key, object? tokens = null)
+    {
+        return this.Helper.Translation.Get(key, tokens).ToString();
     }
 
     private void EnsureDrawingAssets()

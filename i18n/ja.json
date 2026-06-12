@@ -1,0 +1,11 @@
+{
+  "config.clock.title": "時計",
+  "config.clock.use-24-hour.name": "24時間表示を使う",
+  "config.clock.use-24-hour.tooltip": "オフにするとAM/PM表示になります。",
+  "config.alerts.title": "アラート",
+  "config.alert.title": "アラート {{number}}",
+  "config.alert.enabled.name": "アラート {{number}} を有効化",
+  "config.alert.hour.name": "時 {{number}}",
+  "config.alert.minute.name": "分 {{number}}",
+  "config.alert.message.name": "メッセージ {{number}}"
+}

@@ -1,0 +1,11 @@
+{
+  "config.clock.title": "Horloge",
+  "config.clock.use-24-hour.name": "Utiliser le format 24 heures",
+  "config.clock.use-24-hour.tooltip": "Désactivez cette option pour afficher AM/PM.",
+  "config.alerts.title": "Alertes",
+  "config.alert.title": "Alerte {{number}}",
+  "config.alert.enabled.name": "Alerte {{number}} activée",
+  "config.alert.hour.name": "Heure {{number}}",
+  "config.alert.minute.name": "Minute {{number}}",
+  "config.alert.message.name": "Message {{number}}"
+}
