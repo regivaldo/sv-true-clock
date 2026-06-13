@@ -3,7 +3,7 @@ using StardewModdingAPI;
 
 namespace TrueClock;
 
-internal interface IGenericModConfigMenuApi
+public interface IGenericModConfigMenuApi
 {
     void Register(IManifest mod, Action reset, Action save, bool titleScreenOnly = false);
 
@@ -14,7 +14,8 @@ internal interface IGenericModConfigMenuApi
         Func<bool> getValue,
         Action<bool> setValue,
         Func<string> name,
-        Func<string>? tooltip = null);
+        Func<string>? tooltip = null,
+        string? fieldId = null);
 
     void AddNumberOption(
         IManifest mod,
@@ -25,7 +26,8 @@ internal interface IGenericModConfigMenuApi
         int? min = null,
         int? max = null,
         int? interval = null,
-        Func<int, string>? formatValue = null);
+        Func<int, string>? formatValue = null,
+        string? fieldId = null);
 
     void AddTextOption(
         IManifest mod,
@@ -34,5 +36,6 @@ internal interface IGenericModConfigMenuApi
         Func<string> name,
         Func<string>? tooltip = null,
         string[]? allowedValues = null,
-        Func<string, string>? formatAllowedValue = null);
+        Func<string, string>? formatAllowedValue = null,
+        string? fieldId = null);
 }

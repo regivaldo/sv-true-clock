@@ -23,7 +23,6 @@ public sealed class ModEntry : Mod
     private SoundEffectInstance? alarmInstance;
     private DateTime alertUntil = DateTime.MinValue;
     private string activeAlertMessage = string.Empty;
-    private Vector2 clockPosition = new(16, 112);
 
     public override void Entry(IModHelper helper)
     {
@@ -79,11 +78,7 @@ public sealed class ModEntry : Mod
         DateTime now = DateTime.Now;
         string timeText = this.config.Use24HourClock ? now.ToString("HH:mm") : now.ToString("h:mm tt");
         Vector2 textSize = Game1.smallFont.MeasureString(timeText);
-        Rectangle background = new(
-            (int)this.clockPosition.X - 8,
-            (int)this.clockPosition.Y - 12,
-            (int)textSize.X + 64,
-            64);
+        Rectangle background = this.GetClockBackground(textSize);
 
         this.DrawStardewBox(spriteBatch, background, drawShadow: true);
         if (this.clockIcon is not null)
@@ -96,6 +91,18 @@ public sealed class ModEntry : Mod
 
         if (this.IsAlertActive(now) && !string.IsNullOrWhiteSpace(this.activeAlertMessage))
             this.DrawToast(spriteBatch, this.activeAlertMessage, background.Bottom + 8);
+    }
+
+    private Rectangle GetClockBackground(Vector2 textSize)
+    {
+        const int dayInfoPanelWidth = 300;
+        const int margin = 8;
+
+        int width = (int)textSize.X + 64;
+        int height = 64;
+        int x = Game1.uiViewport.Width - dayInfoPanelWidth - width - margin;
+
+        return new Rectangle(Math.Max(16, x), 8, width, height);
     }
 
     private void OnRenderedWorld(object? sender, RenderedWorldEventArgs e)
@@ -154,7 +161,6 @@ public sealed class ModEntry : Mod
         if (this.alarmInstance is null)
             return;
 
-        this.alarmInstance.IsLooped = true;
         this.alarmInstance.Volume = 0.55f;
         this.alarmInstance.Play();
     }

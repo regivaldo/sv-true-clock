@@ -14,4 +14,12 @@
     <None Update="manifest.json" CopyToOutputDirectory="Always" />
     <None Update="i18n/**/*.json" CopyToOutputDirectory="Always" />
   </ItemGroup>
+
+  <PropertyGroup Condition="'$(OS)' == 'Unix'">
+    <GamePath>/mnt/d/SteamLibrary/steamapps/common/Stardew Valley</GamePath>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(OS)' != 'Unix'">
+    <GamePath>D:\SteamLibrary\steamapps\common\Stardew Valley</GamePath>
+  </PropertyGroup>
 </Project>
