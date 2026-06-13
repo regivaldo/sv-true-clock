@@ -1,0 +1,18 @@
+# Build folders
+bin/
+obj/
+
+# User-specific configuration files
+*.csproj.user
+*.suo
+*.user
+
+# IDE files
+.vs/
+.idea/
+.vscode/
+*.sln.DotSettings.user
+
+# OS-specific files
+.DS_Store
+Thumbs.db
