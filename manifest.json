@@ -1,7 +1,7 @@
 {
   "Name": "True Clock",
   "Author": "SunAndMoon",
-  "Version": "1.0.0",
+  "Version": "1.1.0",
   "Description": "Shows the real local time on the HUD and supports up to five real-time alerts.",
   "UniqueID": "SunAndMoon.TrueClock",
   "EntryDll": "TrueClock.dll",

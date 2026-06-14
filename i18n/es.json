@@ -7,5 +7,9 @@
   "config.alert.enabled.name": "Alerta {{number}} activada",
   "config.alert.hour.name": "Hora {{number}}",
   "config.alert.minute.name": "Minuto {{number}}",
-  "config.alert.message.name": "Mensaje {{number}}"
+  "config.alert.message.name": "Mensaje {{number}}",
+  "config.clock.x.name": "Posición X del reloj",
+  "config.clock.x.tooltip": "Posición horizontal del reloj en píxeles de la interfaz. El valor predeterminado corresponde a la parte superior derecha.",
+  "config.clock.y.name": "Posición Y del reloj",
+  "config.clock.y.tooltip": "Posición vertical del reloj en píxeles de la interfaz."
 }

@@ -7,10 +7,17 @@ internal sealed class ModConfig
 {
     public bool Use24HourClock { get; set; } = true;
 
+    public int ClockX { get; set; } = -1;
+
+    public int ClockY { get; set; } = 8;
+
     public List<AlertConfig> Alerts { get; set; } = AlertConfig.CreateDefaultSlots();
 
     public void Normalize()
     {
+        this.ClockX = Math.Clamp(this.ClockX, -1, 10000);
+        this.ClockY = Math.Clamp(this.ClockY, 0, 10000);
+
         this.Alerts ??= new List<AlertConfig>();
 
         while (this.Alerts.Count < AlertConfig.SlotCount)

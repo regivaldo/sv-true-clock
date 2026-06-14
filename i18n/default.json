@@ -7,5 +7,9 @@
   "config.alert.enabled.name": "Alert {{number}} enabled",
   "config.alert.hour.name": "Hour {{number}}",
   "config.alert.minute.name": "Minute {{number}}",
-  "config.alert.message.name": "Message {{number}}"
+  "config.alert.message.name": "Message {{number}}",
+  "config.clock.x.name": "Clock X position",
+  "config.clock.x.tooltip": "Horizontal clock position in HUD pixels. The default value matches the top-right position.",
+  "config.clock.y.name": "Clock Y position",
+  "config.clock.y.tooltip": "Vertical clock position in HUD pixels."
 }

@@ -7,5 +7,9 @@
   "config.alert.enabled.name": "アラート {{number}} を有効化",
   "config.alert.hour.name": "時 {{number}}",
   "config.alert.minute.name": "分 {{number}}",
-  "config.alert.message.name": "メッセージ {{number}}"
+  "config.alert.message.name": "メッセージ {{number}}",
+  "config.clock.x.name": "時計のX位置",
+  "config.clock.x.tooltip": "HUDピクセル単位の時計の横位置です。既定値は右上の位置に一致します。",
+  "config.clock.y.name": "時計のY位置",
+  "config.clock.y.tooltip": "HUDピクセル単位の時計の縦位置です。"
 }

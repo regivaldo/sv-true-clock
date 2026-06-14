@@ -1,5 +1,7 @@
 # True Clock
 
+![True Clock banner](screenshot/banner.png)
+
 | Language |  |  |  |  |  |
 |---|---|---|---|---|---|
 | **English** | [Português do Brasil](docs/README.pt.md) | [Español](docs/README.es.md) | [日本語](docs/README.ja.md) | [Français](docs/README.fr.md) | [Italiano](docs/README.it.md) |
@@ -8,9 +10,24 @@ True Clock is a SMAPI mod for Stardew Valley that shows your real local time on 
 
 The clock uses your computer's local time, not Stardew Valley's in-game time.
 
+## Screenshots
+
+![Clock in the default top-right position](screenshot/game.jpg)
+
+The clock starts in the default top-right position.
+
+![Clock moved with custom X and Y settings](screenshot/clock-position.jpg)
+
+Players can move the clock by changing its X and Y position.
+
+![Configuration page with clock position and alerts](screenshot/config.jpg)
+
+The configuration page includes clock position options and alert settings.
+
 ## Features
 
-- Shows the real local time below the top-left status area.
+- Shows the real local time on the HUD.
+- Lets players set the clock position with numeric X and Y coordinates.
 - Uses Stardew Valley's native UI style.
 - Supports 24-hour or AM/PM display.
 - Supports up to five configurable alerts.
@@ -58,7 +75,9 @@ On first launch, the mod creates `config.json` inside the `TrueClock` mod folder
 
 ## Configuration
 
-If Generic Mod Config Menu is installed, open the mod settings in-game and configure the clock and alerts there.
+If Generic Mod Config Menu is installed, open the mod settings in-game and configure the clock position and alerts there. The clock position uses numeric HUD coordinates: `ClockX` moves the clock horizontally, and `ClockY` moves it vertically.
+
+The default position is the original top-right placement. In `config.json`, `ClockX` defaults to `-1`, which tells the mod to calculate the top-right X coordinate automatically for the current UI size. Once a player changes the X value in the settings menu, the mod saves the chosen numeric coordinate.
 
 Without Generic Mod Config Menu, edit `config.json` manually after the first launch. The mod always keeps exactly five alert slots.
 
@@ -67,6 +86,8 @@ Example:
 ```json
 {
   "Use24HourClock": true,
+  "ClockX": -1,
+  "ClockY": 8,
   "Alerts": [
     {
       "Enabled": true,
@@ -77,6 +98,8 @@ Example:
   ]
 }
 ```
+
+`ClockX` and `ClockY` use HUD pixel coordinates. `ClockX: -1` keeps the automatic top-right default; use `0` or higher for a fixed custom X position. `ClockY` defaults to `8`.
 
 Hours use real local time in 24-hour format from `0` to `23`. Minutes use `0` to `59`.
 

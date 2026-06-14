@@ -90,19 +90,33 @@ public sealed class ModEntry : Mod
             Game1.textColor);
 
         if (this.IsAlertActive(now) && !string.IsNullOrWhiteSpace(this.activeAlertMessage))
-            this.DrawToast(spriteBatch, this.activeAlertMessage, background.Bottom + 8);
+            this.DrawToast(spriteBatch, this.activeAlertMessage, background);
     }
 
     private Rectangle GetClockBackground(Vector2 textSize)
     {
-        const int dayInfoPanelWidth = 300;
-        const int margin = 8;
-
         int width = (int)textSize.X + 64;
         int height = 64;
-        int x = Game1.uiViewport.Width - dayInfoPanelWidth - width - margin;
+        int x = this.GetClockX(width);
+        int y = this.config.ClockY;
 
-        return new Rectangle(Math.Max(16, x), 8, width, height);
+        x = Math.Clamp(x, 0, Math.Max(0, Game1.uiViewport.Width - width));
+        y = Math.Clamp(y, 0, Math.Max(0, Game1.uiViewport.Height - height));
+
+        return new Rectangle(x, y, width, height);
+    }
+
+    private int GetClockX(int clockWidth)
+    {
+        const int dayInfoPanelWidth = 300;
+        const int topRightMargin = 8;
+        const int minimumX = 16;
+
+        if (this.config.ClockX >= 0)
+            return this.config.ClockX;
+
+        int topRightX = Game1.uiViewport.Width - dayInfoPanelWidth - clockWidth - topRightMargin;
+        return Math.Max(minimumX, topRightX);
     }
 
     private void OnRenderedWorld(object? sender, RenderedWorldEventArgs e)
@@ -209,6 +223,24 @@ public sealed class ModEntry : Mod
             setValue: value => this.config.Use24HourClock = value,
             name: () => this.I18n("config.clock.use-24-hour.name"),
             tooltip: () => this.I18n("config.clock.use-24-hour.tooltip"));
+        gmcm.AddNumberOption(
+            this.ModManifest,
+            getValue: () => this.GetClockX(this.GetCurrentClockWidth()),
+            setValue: value => this.config.ClockX = value,
+            name: () => this.I18n("config.clock.x.name"),
+            tooltip: () => this.I18n("config.clock.x.tooltip"),
+            min: 0,
+            max: 10000,
+            interval: 1);
+        gmcm.AddNumberOption(
+            this.ModManifest,
+            getValue: () => this.config.ClockY,
+            setValue: value => this.config.ClockY = value,
+            name: () => this.I18n("config.clock.y.name"),
+            tooltip: () => this.I18n("config.clock.y.tooltip"),
+            min: 0,
+            max: 10000,
+            interval: 1);
 
         gmcm.AddSectionTitle(this.ModManifest, () => this.I18n("config.alerts.title"));
 
@@ -253,6 +285,14 @@ public sealed class ModEntry : Mod
     {
         return this.Helper.Translation.Get(key, tokens).ToString();
     }
+
+    private int GetCurrentClockWidth()
+    {
+        DateTime now = DateTime.Now;
+        string timeText = this.config.Use24HourClock ? now.ToString("HH:mm") : now.ToString("h:mm tt");
+        return (int)Game1.smallFont.MeasureString(timeText).X + 64;
+    }
+
 
     private void EnsureDrawingAssets()
     {
@@ -329,12 +369,20 @@ public sealed class ModEntry : Mod
         this.alarmSound = new SoundEffect(buffer, sampleRate, AudioChannels.Mono);
     }
 
-    private void DrawToast(SpriteBatch spriteBatch, string message, int top)
+    private void DrawToast(SpriteBatch spriteBatch, string message, Rectangle clockBackground)
     {
+        const int margin = 8;
+
         string text = message.Length > 60 ? $"{message[..57]}..." : message;
         Vector2 textSize = Game1.smallFont.MeasureString(text);
         int width = Math.Min((int)textSize.X + 32, Game1.uiViewport.Width - 32);
-        Rectangle background = new(16, top, width, (int)textSize.Y + 24);
+        int height = (int)textSize.Y + 24;
+        int top = clockBackground.Bottom + margin;
+
+        if (top + height > Game1.uiViewport.Height - margin)
+            top = Math.Max(margin, clockBackground.Y - height - margin);
+
+        Rectangle background = new(16, top, width, height);
 
         this.DrawStardewBox(spriteBatch, background, drawShadow: true);
         spriteBatch.DrawString(Game1.smallFont, text, new Vector2(background.X + 16, background.Y + 12), Game1.textColor);
