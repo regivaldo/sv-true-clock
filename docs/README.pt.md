@@ -1,16 +1,33 @@
 # True Clock
 
+![Banner do True Clock](../screenshot/banner.png)
+
 | Idioma |  |  |  |  |  |
 |---|---|---|---|---|---|
 | [English](../README.md) | **Português do Brasil** | [Español](README.es.md) | [日本語](README.ja.md) | [Français](README.fr.md) | [Italiano](README.it.md) |
 
 True Clock é um mod SMAPI para Stardew Valley que mostra o horário real local no HUD do jogo. Ele também oferece até cinco alertas configuráveis em horário real, com balão de relógio sobre o jogador, uma pequena mensagem no HUD e um som curto de alarme.
 
-O relógio usa o horário local do seu computador, não o horário interno de Stardew Valley.
+O relógio usa o horário local do seu computador, não o horário do jogo em Stardew Valley.
+
+## Capturas De Tela
+
+![Relógio na posição padrão no canto superior direito](../screenshot/game.jpg)
+
+O relógio começa na posição padrão no canto superior direito.
+
+![Relógio movido com configurações personalizadas de X e Y](../screenshot/clock-position.jpg)
+
+Os jogadores podem mover o relógio alterando sua posição X e Y.
+
+![Página de configuração com posição do relógio e alertas](../screenshot/config.jpg)
+
+A página de configuração inclui opções de posição do relógio e configurações de alertas.
 
 ## Recursos
 
-- Mostra o horário real local abaixo da área de status no canto superior esquerdo.
+- Mostra o horário real local no HUD.
+- Permite definir a posição do relógio com coordenadas numéricas X e Y.
 - Usa o estilo de UI nativo do Stardew Valley.
 - Suporta formato 24 horas ou AM/PM.
 - Suporta até cinco alertas configuráveis.
@@ -58,15 +75,19 @@ Na primeira execução, o mod cria `config.json` dentro da pasta do mod `TrueClo
 
 ## Configuração
 
-Se o Generic Mod Config Menu estiver instalado, abra as configurações do mod dentro do jogo e configure o relógio e os alertas por lá.
+Se o Generic Mod Config Menu estiver instalado, abra as configurações do mod dentro do jogo e configure a posição do relógio e os alertas por lá. A posição do relógio usa coordenadas numéricas do HUD: `ClockX` move o relógio horizontalmente, e `ClockY` move o relógio verticalmente.
 
-Sem o Generic Mod Config Menu, edite manualmente o arquivo `config.json` depois da primeira execução. O mod sempre mantém exatamente cinco slots de alerta.
+A posição padrão é o posicionamento original no canto superior direito. Em `config.json`, `ClockX` usa `-1` como padrão, o que diz ao mod para calcular automaticamente a coordenada X no canto superior direito de acordo com o tamanho atual da UI. Quando um jogador altera o valor de X no menu de configurações, o mod salva a coordenada numérica escolhida.
+
+Sem o Generic Mod Config Menu, edite manualmente `config.json` depois da primeira execução. O mod sempre mantém exatamente cinco slots de alerta.
 
 Exemplo:
 
 ```json
 {
   "Use24HourClock": true,
+  "ClockX": -1,
+  "ClockY": 8,
   "Alerts": [
     {
       "Enabled": true,
@@ -77,6 +98,8 @@ Exemplo:
   ]
 }
 ```
+
+`ClockX` e `ClockY` usam coordenadas de pixel do HUD. `ClockX: -1` mantém o padrão automático no canto superior direito; use `0` ou maior para uma posição X personalizada fixa. `ClockY` usa `8` como padrão.
 
 As horas usam o horário real local em formato 24 horas, de `0` a `23`. Os minutos usam `0` a `59`.
 
